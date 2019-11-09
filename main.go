@@ -5,8 +5,10 @@ import (
 	"./http/handler/api"
 	"./mock/matching"
 	"./mock/repository"
+	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -16,7 +18,13 @@ func main() {
 	router := mux.NewRouter()
 	router.PathPrefix("/mock/").Handler(handler.NewMockHandler(matcher))
 	router.Path("/api/reset").Methods("POST").Handler(api.NewResetHandler(mockRepository))
-	router.Path("/api/mock/{mock}").Methods("POST").Handler((api.NewSetMockHandler(mockRepository)))
+	router.Path("/api/mock/{mock}").Methods("POST").Handler(api.NewSetMockHandler(mockRepository))
 
-	_ = http.ListenAndServe(":8080", router)
+	port, present := os.LookupEnv("BASE_PORT")
+
+	if !present {
+		fmt.Println("The environment variable \"BASE_PORT\" must be provided.")
+		return
+	}
+	_ = http.ListenAndServe(":" + port, router)
 }
