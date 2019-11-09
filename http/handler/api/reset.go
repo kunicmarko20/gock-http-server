@@ -1,12 +1,12 @@
 package api
 
 import (
-	"../../../mock"
+	"../../../mock/repository"
 	"net/http"
 )
 
 type ResetHandler struct {
-	MockRepository *mock.Repository
+	MockRepository repository.MockRepository
 }
 func (h *ResetHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 	h.MockRepository.Reset()

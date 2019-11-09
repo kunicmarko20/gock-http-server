@@ -2,12 +2,13 @@ package matching
 
 import (
 	"../../mock"
+	"../repository"
 	"errors"
 	"net/http"
 )
 
 type MockMatcher struct {
-	MockRepository *mock.Repository
+	MockRepository repository.MockRepository
 }
 
 func (m *MockMatcher) Match (request *http.Request) (*mock.Mock, error) {

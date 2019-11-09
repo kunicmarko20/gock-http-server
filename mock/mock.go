@@ -6,7 +6,7 @@ import (
 )
 
 type Mock struct {
-	name     string
+	Name     string
 	rule     matching.Rule
 	Response Response
 }

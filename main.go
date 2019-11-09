@@ -3,14 +3,14 @@ package main
 import (
 	"./http/handler"
 	"./http/handler/api"
-	"./mock"
+	"./mock/repository"
 	"./mock/matching"
 	"github.com/gorilla/mux"
 	"net/http"
 )
 
 func main() {
-	repository := new(mock.Repository)
+	repository := new(repository.InMemoryMockRepository)
 	matcher := matching.MockMatcher{repository}
 
 	router := mux.NewRouter()

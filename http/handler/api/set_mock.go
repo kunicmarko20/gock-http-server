@@ -1,12 +1,12 @@
 package api
 
 import (
-	"../../../mock"
+	"../../../mock/repository"
 	"net/http"
 )
 
 type SetMockHandler struct {
-	MockRepository *mock.Repository
+	MockRepository repository.MockRepository
 }
 
 func (h *SetMockHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
