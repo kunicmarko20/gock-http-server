@@ -11,7 +11,7 @@ type MockMatcher struct {
 	MockRepository repository.MockRepository
 }
 
-func (m *MockMatcher) Match (request *http.Request) (*mock.Mock, error) {
+func (m *MockMatcher) Match(request *http.Request) (*mock.Mock, error) {
 	for _, value := range m.MockRepository.All() {
 		if value.Matches(request) {
 			return value, nil

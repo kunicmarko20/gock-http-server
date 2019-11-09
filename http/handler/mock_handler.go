@@ -6,21 +6,25 @@ import (
 )
 
 type MockHandler struct {
-	MockMatcher matching.MockMatcher
+	mockMatcher matching.MockMatcher
+}
+
+func NewMockHandler(mockMatcher matching.MockMatcher) *MockHandler {
+	return &MockHandler{mockMatcher}
 }
 
 func (h *MockHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
-	mock, err := h.MockMatcher.Match(request)
+	mock, err := h.mockMatcher.Match(request)
 
 	if err != nil {
 		_, _ = writer.Write([]byte(err.Error()))
 		return
 	}
 
-	for header, value := range mock.Response.Headers {
+	for header, value := range mock.Response().Headers() {
 		writer.Header().Set(header, value)
 	}
 
-	writer.WriteHeader(mock.Response.StatusCode)
-	_, _ = writer.Write([]byte(mock.Response.Body))
+	writer.WriteHeader(mock.Response().StatusCode())
+	_, _ = writer.Write([]byte(mock.Response().Body()))
 }

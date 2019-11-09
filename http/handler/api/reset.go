@@ -6,8 +6,15 @@ import (
 )
 
 type ResetHandler struct {
-	MockRepository repository.MockRepository
+	mockRepository repository.MockRepository
 }
+
+func NewResetHandler(mockRepository repository.MockRepository) *ResetHandler {
+	return &ResetHandler{mockRepository}
+}
+
 func (h *ResetHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
-	h.MockRepository.Reset()
+	h.mockRepository.Reset()
+
+	writer.WriteHeader(204)
 }

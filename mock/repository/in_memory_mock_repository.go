@@ -18,7 +18,7 @@ func (r *InMemoryMockRepository) Reset() {
 }
 
 func (r *InMemoryMockRepository) Set(mock *mock.Mock) {
-	r.mocks[mock.Name] = mock
+	r.mocks[mock.Name()] = mock
 }
 
 func (r *InMemoryMockRepository) Get(mockName string) (*mock.Mock, error) {
