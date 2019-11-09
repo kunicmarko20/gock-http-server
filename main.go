@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	mockRepository := new(repository.InMemoryMockRepository)
+	mockRepository := repository.NewInMemoryMockRepository()
 	matcher := matching.MockMatcher{mockRepository}
 
 	router := mux.NewRouter()

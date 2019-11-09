@@ -21,10 +21,10 @@ func (h *MockHandler) ServeHTTP(writer http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	for header, value := range mock.Response().Headers() {
+	for header, value := range mock.Response().Headers {
 		writer.Header().Set(header, value)
 	}
 
-	writer.WriteHeader(mock.Response().StatusCode())
-	_, _ = writer.Write([]byte(mock.Response().Body()))
+	writer.WriteHeader(mock.Response().StatusCode)
+	_, _ = writer.Write([]byte(mock.Response().Content))
 }

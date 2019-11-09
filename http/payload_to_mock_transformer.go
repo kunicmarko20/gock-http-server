@@ -10,14 +10,14 @@ import (
 	"net/http"
 )
 
-type PayloadFactory struct{}
+type PayloadToMockTransformer struct{}
 
-func (p PayloadFactory) FromRequest(request *http.Request) (*mock.Mock, error) {
+func (p PayloadToMockTransformer) FromRequest(request *http.Request) (*mock.Mock, error) {
 	decoder := json.NewDecoder(request.Body)
 
-	var decodedJson map[string]interface{}
+	var payload Payload
 
-	err := decoder.Decode(&decodedJson)
+	err := decoder.Decode(&payload)
 
 	if err != nil {
 		return nil, errors.New("unable to deserialize json")
@@ -25,19 +25,19 @@ func (p PayloadFactory) FromRequest(request *http.Request) (*mock.Mock, error) {
 
 	vars := mux.Vars(request)
 
-	rule, err := p.transformMatchRule(decodedJson["matchRule"].(map[string]interface{}))
+	rule, err := p.transformMatchRule(payload.MatchRule)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return mock.NewMock(vars["mock"], rule, p.createResponse(decodedJson["response"].(map[string]interface{}))), nil
+	return mock.NewMock(vars["mock"], rule, payload.Response), nil
 }
 
-func (p PayloadFactory) transformMatchRule(matchRule map[string]interface{}) (rules.Rule, error) {
+func (p PayloadToMockTransformer) transformMatchRule(matchRule map[string]interface{}) (rules.Rule, error) {
 	switch matchRule["type"] {
 	case "allOf":
-		children, err := p.transformChildRules(matchRule["rules"].(map[string]interface{}))
+		children, err := p.transformChildRules(matchRule["rules"].([]interface{}))
 
 		if err != nil {
 			return nil, err
@@ -45,7 +45,7 @@ func (p PayloadFactory) transformMatchRule(matchRule map[string]interface{}) (ru
 
 		return rules.NewAllOf(children), nil
 	case "anyOf":
-		children, err := p.transformChildRules(matchRule["rules"].(map[string]interface{}))
+		children, err := p.transformChildRules(matchRule["rules"].([]interface{}))
 
 		if err != nil {
 			return nil, err
@@ -63,7 +63,7 @@ func (p PayloadFactory) transformMatchRule(matchRule map[string]interface{}) (ru
 	}
 }
 
-func (p PayloadFactory) transformChildRules(childRules map[string]interface{}) ([]rules.Rule, error) {
+func (p PayloadToMockTransformer) transformChildRules(childRules []interface{}) ([]rules.Rule, error) {
 	var children []rules.Rule
 
 	for _, rule := range childRules {
@@ -77,12 +77,4 @@ func (p PayloadFactory) transformChildRules(childRules map[string]interface{}) (
 	}
 
 	return children, nil
-}
-
-func (p PayloadFactory) createResponse(data map[string]interface{}) *mock.Response {
-	return mock.NewResponse(
-		data["statusCode"].(int),
-		data["headers"].(map[string]string),
-		data["content"].(string),
-	)
 }

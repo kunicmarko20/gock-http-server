@@ -15,7 +15,7 @@ func NewSetMockHandler(mockRepository repository.MockRepository) *SetMockHandler
 }
 
 func (h *SetMockHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
-	mock, err := new(ghttp.PayloadFactory).FromRequest(request)
+	mock, err := new(ghttp.PayloadToMockTransformer).FromRequest(request)
 
 	if err != nil {
 		writer.WriteHeader(400)

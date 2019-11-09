@@ -9,6 +9,10 @@ type InMemoryMockRepository struct {
 	mocks map[string]*mock.Mock
 }
 
+func NewInMemoryMockRepository() *InMemoryMockRepository {
+	return &InMemoryMockRepository{make(map[string]*mock.Mock)}
+}
+
 func (r *InMemoryMockRepository) All() map[string]*mock.Mock {
 	return r.mocks
 }
