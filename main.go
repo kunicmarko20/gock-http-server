@@ -1,18 +1,22 @@
 package main
 
 import (
-	"net/http"
+	"./http/handler"
+	"./http/handler/api"
+	"./mock"
+	"./mock/matching"
 	"github.com/gorilla/mux"
+	"net/http"
 )
 
-import "./handler"
-import "./handler/api"
-
 func main() {
-	r := mux.NewRouter()
-	r.PathPrefix("/mock/").Handler(new(handler.MockHandler))
-	r.Path("/api/reset").Methods("POST").Handler(new(api.ResetHandler))
-	r.Path("/api/mock/{mock}").Methods("POST").Handler(new(api.SetMockHandler))
+	repository := new(mock.Repository)
+	matcher := matching.MockMatcher{repository}
 
-	_ = http.ListenAndServe(":8080", r)
+	router := mux.NewRouter()
+	router.PathPrefix("/mock/").Handler(&handler.MockHandler{matcher})
+	router.Path("/api/reset").Methods("POST").Handler(&api.ResetHandler{repository})
+	router.Path("/api/mock/{mock}").Methods("POST").Handler(&api.SetMockHandler{repository})
+
+	_ = http.ListenAndServe(":8080", router)
 }
