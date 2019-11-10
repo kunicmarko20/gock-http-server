@@ -3,20 +3,25 @@ package api
 import (
 	ghttp "../../../http"
 	"../../../mock/repository"
+	"../../../propertyaccess"
 	"log"
 	"net/http"
 )
 
 type SetMockHandler struct {
-	mockRepository repository.MockRepository
+	mockRepository   repository.MockRepository
+	propertyAccessor *propertyaccess.PropertyAccessor
 }
 
-func NewSetMockHandler(mockRepository repository.MockRepository) *SetMockHandler {
-	return &SetMockHandler{mockRepository}
+func NewSetMockHandler(
+	mockRepository repository.MockRepository,
+	propertyAccessor *propertyaccess.PropertyAccessor,
+) *SetMockHandler {
+	return &SetMockHandler{mockRepository, propertyAccessor}
 }
 
 func (h *SetMockHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
-	mock, err := new(ghttp.PayloadToMockTransformer).FromRequest(request)
+	mock, err := ghttp.NewPayloadToMockTransformer(h.propertyAccessor).FromRequest(request)
 
 	if err != nil {
 		writer.WriteHeader(400)

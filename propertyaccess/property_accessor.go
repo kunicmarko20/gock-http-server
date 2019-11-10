@@ -1,4 +1,4 @@
-package property_access
+package propertyaccess
 
 import "github.com/pkg/errors"
 
@@ -19,9 +19,9 @@ func (p PropertyAccessor) GetValue(data map[string]interface{}, property *Proper
 	for index, path := range property.Path() {
 		if index == (pathsLength - 1) {
 			return data[path], nil
-		} else {
-			data = data[path].(map[string]interface{})
 		}
+
+		data = data[path].(map[string]interface{})
 	}
 
 	return nil, errors.New("value not found")

@@ -1,4 +1,4 @@
-package property_access
+package propertyaccess
 
 import (
 	"testing"

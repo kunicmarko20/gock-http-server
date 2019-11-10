@@ -6,6 +6,7 @@ import (
 	"./http/handler/api"
 	"./mock/matching"
 	"./mock/repository"
+	"./propertyaccess"
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -15,12 +16,13 @@ import (
 func main() {
 	mockRepository := repository.NewInMemoryMockRepository()
 	matcher := matching.NewRepositorySourcedMockMatcher(mockRepository)
+	propertyAccessor := propertyaccess.NewPropertyAccessor()
 
 	router := mux.NewRouter()
 	router.Use(ghttp.AddRequestID, ghttp.HandleRequest)
 	router.PathPrefix("/mock/").Handler(handler.NewMockHandler(matcher))
 	router.Path("/api/reset").Methods("POST").Handler(api.NewResetHandler(mockRepository))
-	router.Path("/api/mock/{mock}").Methods("POST").Handler(api.NewSetMockHandler(mockRepository))
+	router.Path("/api/mock/{mock}").Methods("POST").Handler(api.NewSetMockHandler(mockRepository, propertyAccessor))
 
 	port, present := os.LookupEnv("BASE_PORT")
 

@@ -3,6 +3,7 @@ package http
 import (
 	"../mock"
 	"../mock/matching/rules"
+	"../propertyaccess"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -10,7 +11,13 @@ import (
 	"net/http"
 )
 
-type PayloadToMockTransformer struct{}
+type PayloadToMockTransformer struct {
+	propertyAccessor *propertyaccess.PropertyAccessor
+}
+
+func NewPayloadToMockTransformer(propertyAccessor *propertyaccess.PropertyAccessor) *PayloadToMockTransformer {
+	return &PayloadToMockTransformer{propertyAccessor}
+}
 
 func (p PayloadToMockTransformer) FromRequest(request *http.Request) (*mock.Mock, error) {
 	decoder := json.NewDecoder(request.Body)
@@ -58,6 +65,8 @@ func (p PayloadToMockTransformer) transformMatchRule(matchRule map[string]interf
 		return rules.NewPathEquals(matchRule["value"].(string)), nil
 	case "pathPrefixEquals":
 		return rules.NewPathPrefixEquals(matchRule["value"].(string)), nil
+	case "jsonRequestPayloadPropertyEquals":
+		return rules.NewJsonRequestPayloadPropertyEquals(matchRule["property"].(string), matchRule["value"], p.propertyAccessor), nil
 	default:
 		return nil, fmt.Errorf("unknown type: \"%v\"", matchRule["type"])
 	}
