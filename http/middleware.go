@@ -7,9 +7,11 @@ import (
 	"net/http"
 )
 
-const ContextKeyRequestID string = "request_id"
+type RequestID string
 
-func AddRequestId(next http.Handler) http.Handler {
+const ContextKeyRequestID RequestID = "request_id"
+
+func AddRequestID(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 
 		ctx := request.Context()

@@ -17,7 +17,7 @@ func main() {
 	matcher := matching.MockMatcher{mockRepository}
 
 	router := mux.NewRouter()
-	router.Use(ghttp.AddRequestId, ghttp.HandleRequest)
+	router.Use(ghttp.AddRequestID, ghttp.HandleRequest)
 	router.PathPrefix("/mock/").Handler(handler.NewMockHandler(matcher))
 	router.Path("/api/reset").Methods("POST").Handler(api.NewResetHandler(mockRepository))
 	router.Path("/api/mock/{mock}").Methods("POST").Handler(api.NewSetMockHandler(mockRepository))

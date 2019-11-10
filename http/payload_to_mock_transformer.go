@@ -59,7 +59,7 @@ func (p PayloadToMockTransformer) transformMatchRule(matchRule map[string]interf
 	case "pathPrefixEquals":
 		return rules.NewPathPrefixEquals(matchRule["value"].(string)), nil
 	default:
-		return nil, errors.New(fmt.Sprintf("Unknown type: \"%v\"", matchRule["type"]))
+		return nil, fmt.Errorf("unknown type: \"%v\"", matchRule["type"])
 	}
 }
 
