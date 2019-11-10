@@ -16,5 +16,5 @@ func NewResetHandler(mockRepository repository.MockRepository) *ResetHandler {
 func (h *ResetHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 	h.mockRepository.Reset()
 
-	writer.WriteHeader(204)
+	writer.WriteHeader(http.StatusNoContent)
 }

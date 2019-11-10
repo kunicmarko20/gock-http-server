@@ -35,5 +35,5 @@ func (h *SetMockHandler) ServeHTTP(writer http.ResponseWriter, request *http.Req
 		"mock": mock.Name(),
 	})
 
-	writer.WriteHeader(204)
+	writer.WriteHeader(http.StatusNoContent)
 }

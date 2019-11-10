@@ -32,6 +32,8 @@ func (h *MockHandler) ServeHTTP(writer http.ResponseWriter, request *http.Reques
 		log.Println("Request did not match a mock.", map[string]string{
 			"request_id": request.Context().Value(ghttp.ContextKeyRequestID).(string),
 		})
+
+		writer.WriteHeader(http.StatusBadRequest)
 		_, _ = writer.Write([]byte(err.Error()))
 		return
 	}
