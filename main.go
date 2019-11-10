@@ -14,7 +14,7 @@ import (
 
 func main() {
 	mockRepository := repository.NewInMemoryMockRepository()
-	matcher := matching.MockMatcher{mockRepository}
+	matcher := matching.NewRepositorySourcedMockMatcher(mockRepository)
 
 	router := mux.NewRouter()
 	router.Use(ghttp.AddRequestID, ghttp.HandleRequest)
