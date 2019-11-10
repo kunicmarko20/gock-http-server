@@ -3,6 +3,7 @@ package api
 import (
 	ghttp "../../../http"
 	"../../../mock/repository"
+	"log"
 	"net/http"
 )
 
@@ -24,5 +25,10 @@ func (h *SetMockHandler) ServeHTTP(writer http.ResponseWriter, request *http.Req
 	}
 
 	h.mockRepository.Set(mock)
+
+	log.Println("Updated mock.", map[string]string{
+		"mock": mock.Name(),
+	})
+
 	writer.WriteHeader(204)
 }
