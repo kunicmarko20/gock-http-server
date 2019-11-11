@@ -1,6 +1,6 @@
 package propertyaccess
 
-import "github.com/pkg/errors"
+import "errors"
 
 type PropertyAccessor struct{}
 
