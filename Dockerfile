@@ -7,7 +7,7 @@ WORKDIR /app
 ENV GOPATH /app
 
 RUN apk add --no-cache git && \
-  go build main.go && \
+  go build -o gock-server && \
   apk del git
 
-ENTRYPOINT /app/app
+ENTRYPOINT /app/gock-server
