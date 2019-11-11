@@ -1,9 +1,9 @@
 package api
 
 import (
-	ghttp "../../../http"
-	"../../../mock/repository"
-	"../../../propertyaccess"
+	ghttp "github.com/kunicmarko20/gock-http-server/http"
+	"github.com/kunicmarko20/gock-http-server/mock/repository"
+	"github.com/kunicmarko20/gock-http-server/propertyaccess"
 	"log"
 	"net/http"
 )

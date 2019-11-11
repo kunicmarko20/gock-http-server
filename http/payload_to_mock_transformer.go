@@ -1,13 +1,13 @@
 package http
 
 import (
-	"../mock"
-	"../mock/matching/rules"
-	"../propertyaccess"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/kunicmarko20/gock-http-server/mock"
+	"github.com/kunicmarko20/gock-http-server/mock/matching/rules"
+	"github.com/kunicmarko20/gock-http-server/propertyaccess"
 	"net/http"
 )
 

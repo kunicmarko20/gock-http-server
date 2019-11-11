@@ -1,7 +1,7 @@
 package mock
 
 import (
-	matching "./matching/rules"
+	matching "github.com/kunicmarko20/gock-http-server/mock/matching/rules"
 	"net/http"
 )
 

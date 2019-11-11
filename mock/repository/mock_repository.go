@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"../../mock"
+	"github.com/kunicmarko20/gock-http-server/mock"
 )
 
 type MockRepository interface {

@@ -1,8 +1,8 @@
 package rules
 
 import (
-	"../../../propertyaccess"
 	"encoding/json"
+	"github.com/kunicmarko20/gock-http-server/propertyaccess"
 	"log"
 	"net/http"
 )

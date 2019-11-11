@@ -4,10 +4,10 @@ ADD . /app/
 
 WORKDIR /app
 
-ENV GOPATH /app
+ENV GOPATH /go
 
 RUN apk add --no-cache git && \
-  go build -o gock-server && \
+  go build -o gock-http-server && \
   apk del git
 
-ENTRYPOINT /app/gock-server
+ENTRYPOINT /app/gock-http-server

@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"../../mock"
 	"errors"
+	"github.com/kunicmarko20/gock-http-server/mock"
 )
 
 type InMemoryMockRepository struct {

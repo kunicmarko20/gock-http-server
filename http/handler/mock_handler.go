@@ -1,9 +1,9 @@
 package handler
 
 import (
-	ghttp "../../http"
-	"../../mock/matching"
 	"encoding/json"
+	ghttp "github.com/kunicmarko20/gock-http-server/http"
+	"github.com/kunicmarko20/gock-http-server/mock/matching"
 	"log"
 	"net/http"
 )

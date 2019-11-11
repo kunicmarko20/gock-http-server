@@ -1,14 +1,14 @@
 package main
 
 import (
-	ghttp "./http"
-	"./http/handler"
-	"./http/handler/api"
-	"./mock/matching"
-	"./mock/repository"
-	"./propertyaccess"
 	"fmt"
 	"github.com/gorilla/mux"
+	ghttp "github.com/kunicmarko20/gock-http-server/http"
+	"github.com/kunicmarko20/gock-http-server/http/handler"
+	"github.com/kunicmarko20/gock-http-server/http/handler/api"
+	"github.com/kunicmarko20/gock-http-server/mock/matching"
+	"github.com/kunicmarko20/gock-http-server/mock/repository"
+	"github.com/kunicmarko20/gock-http-server/propertyaccess"
 	"net/http"
 	"os"
 )

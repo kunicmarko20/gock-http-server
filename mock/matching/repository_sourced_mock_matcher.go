@@ -1,9 +1,9 @@
 package matching
 
 import (
-	"../../mock"
-	"../repository"
 	"errors"
+	"github.com/kunicmarko20/gock-http-server/mock"
+	"github.com/kunicmarko20/gock-http-server/mock/repository"
 	"net/http"
 )
 

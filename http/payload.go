@@ -1,6 +1,6 @@
 package http
 
-import "../mock"
+import "github.com/kunicmarko20/gock-http-server/mock"
 
 type Payload struct {
 	MatchRule map[string]interface{}

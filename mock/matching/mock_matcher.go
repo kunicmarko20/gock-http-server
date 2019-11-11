@@ -1,7 +1,7 @@
 package matching
 
 import (
-	"../../mock"
+	"github.com/kunicmarko20/gock-http-server/mock"
 	"net/http"
 )
 

@@ -1,7 +1,7 @@
 package api
 
 import (
-	"../../../mock/repository"
+	"github.com/kunicmarko20/gock-http-server/mock/repository"
 	"net/http"
 )
 
