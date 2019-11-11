@@ -5,9 +5,9 @@ ADD . /app/
 WORKDIR /app
 
 RUN apk add --no-cache git && \
-  go get -u github.com/gorilla/mux github.com/google/uuid && \
+  go get -u github.com/gorilla/mux github.com/google/uuid github.com/pkg/errors && \
+  go build main.go && \
   apk del git
 
 ENV GOPATH /app
-ENV BASE_PORT 3000
-ENTRYPOINT /usr/local/go/bin/go run main.go
+ENTRYPOINT /app/app
