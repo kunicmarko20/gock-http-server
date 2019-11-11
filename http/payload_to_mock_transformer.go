@@ -2,7 +2,6 @@ package http
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/kunicmarko20/gock-http-server/mock"
@@ -27,7 +26,7 @@ func (p PayloadToMockTransformer) FromRequest(request *http.Request) (*mock.Mock
 	err := decoder.Decode(&payload)
 
 	if err != nil {
-		return nil, errors.New("unable to deserialize json")
+		return nil, fmt.Errorf("unable to deserialize json, with error: %s", err)
 	}
 
 	vars := mux.Vars(request)

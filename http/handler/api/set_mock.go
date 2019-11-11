@@ -24,7 +24,8 @@ func (h *SetMockHandler) ServeHTTP(writer http.ResponseWriter, request *http.Req
 	mock, err := ghttp.NewPayloadToMockTransformer(h.propertyAccessor).FromRequest(request)
 
 	if err != nil {
-		writer.WriteHeader(400)
+		log.Printf("Failed transforming payload with error: \"%s\".", err)
+		writer.WriteHeader(http.StatusBadRequest)
 		_, _ = writer.Write([]byte(err.Error()))
 		return
 	}
